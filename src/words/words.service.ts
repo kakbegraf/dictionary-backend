@@ -12,7 +12,6 @@ export class WordsService {
     constructor(
         @InjectRepository(WordEntity) private readonly wordRepository: Repository<wordI>,
     ) {}
-    private words: Array<wordI> = []
 
     getAll(): Promise<wordI[]> {
         let options: FindManyOptions = {
