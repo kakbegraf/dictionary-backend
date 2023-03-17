@@ -8,7 +8,6 @@ async function bootstrap() {
   const config = new DocumentBuilder()
       .setTitle('Dictionary')
       .setVersion('1.0')
-      .addTag('nest-postgres')
       .build();
 
   const document = SwaggerModule.createDocument(app, config);
