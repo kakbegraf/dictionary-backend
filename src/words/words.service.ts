@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import {FindManyOptions, Repository} from 'typeorm';
 
 import { WordEntity } from './word.entity';
 import { wordI } from './interface/interfaces';
@@ -15,16 +15,21 @@ export class WordsService {
     private words: Array<wordI> = []
 
     getAll(): Promise<wordI[]> {
-        return this.wordRepository.find();
+        let options: FindManyOptions = {
+            order: {
+                created_at: 'asc'
+            }
+        }
+        return this.wordRepository.find(options);
     }
 
     getById(id: string): Promise<wordI> {
-        const option = {
+        const options = {
             where: {
                 id,
             },
         }
-        return this.wordRepository.findOne(option);
+        return this.wordRepository.findOne(options);
     }
 
     create(wordDto: CreateWordDto) {
@@ -34,12 +39,12 @@ export class WordsService {
 
     async update(wordDto: UpdateWordDto, id: string) {
         await this.wordRepository.update(id, wordDto);
-        const option = {
+        const options = {
             where: {
                 id,
             },
         }
-        return await this.wordRepository.findOne(option);
+        return await this.wordRepository.findOne(options);
     }
 
     remove(id: string) {
