@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {FindManyOptions, Repository} from 'typeorm';
-
 import { WordEntity } from './word.entity';
 import { wordI } from './interface/interfaces';
 import { CreateWordDto } from "./dto/create-word.dto";
