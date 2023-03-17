@@ -21,7 +21,7 @@ export class WordsService {
     getById(id: string): Promise<wordI> {
         const option = {
             where: {
-                id: id,
+                id,
             },
         }
         return this.wordRepository.findOne(option);
@@ -33,15 +33,13 @@ export class WordsService {
     }
 
     async update(wordDto: UpdateWordDto, id: string) {
+        await this.wordRepository.update(id, wordDto);
         const option = {
             where: {
-                id: id,
+                id,
             },
         }
-        let word: wordI = await this.wordRepository.findOne(option);
-        word.word = wordDto.word;
-        word.translation = wordDto.translation;
-        return this.wordRepository.save(word);
+        return await this.wordRepository.findOne(option);
     }
 
     remove(id: string) {
